@@ -1,69 +1,157 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useState } from 'react';
+import { Landmark, CheckCircle2, Clock, AlertTriangle } from 'lucide-react';
+import Sidebar from '../src/components/layout/Sidebar';
+import TopBar from '../src/components/layout/TopBar';
+import PageHeader from '../src/components/banks/PageHeader';
+import StatCard from '../src/components/banks/StatCard';
+import FilterBar from '../src/components/banks/FilterBar';
+import BanksTable from '../src/components/banks/BanksTable';
+import Pagination from '../src/components/banks/Pagination';
+import LiquidityOverviewCard from '../src/components/banks/LiquidityOverviewCard';
+import QuickActionsCard from '../src/components/banks/QuickActionsCard';
+import AddBankModal from '../src/components/modals/AddBankModal';
+import BankDetailModal from '../src/components/modals/BankDetailModal';
+import AdvancedFilterDrawer from '../src/components/modals/AdvancedFilterDrawer';
+import { useBanks } from '../src/hooks/useBanks';
+import { useBankStore } from '../src/store/useBankStore';
+
+export default function BanksDashboardPage() {
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+
+  const { data, isLoading, isError, refetch } = useBanks();
+
+  const filters = useBankStore((state) => state.filters);
+  const setStatusFilter = useBankStore((state) => state.setStatusFilter);
+
+  const summary = data?.summary || {
+    totalBanks: 24,
+    inUseCount: 18,
+    inUsePercentage: 75.0,
+    pendingCount: 3,
+    pendingPercentage: 12.5,
+    mismatchCount: 2,
+    mismatchPercentage: 8.3,
+    totalSystemBalance: 82340000,
+    totalInflow: 56780000,
+    totalOutflow: 25560000,
+    netFlow: 31220000,
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
+    <div className="min-h-screen flex bg-slate-50 text-slate-900 font-sans">
+      {/* 1. Left Sidebar (Fixed desktop / Drawer mobile) */}
+      <Sidebar
+        isOpenMobile={isMobileSidebarOpen}
+        onCloseMobile={() => setIsMobileSidebarOpen(false)}
+      />
+
+      {/* Main Workspace Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* 2. Top Bar */}
+        <TopBar onOpenMobileSidebar={() => setIsMobileSidebarOpen(true)} />
+
+        {/* 3. Dashboard Page Content Container */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1600px] w-full mx-auto space-y-6">
+          {/* Page Header */}
+          <PageHeader />
+
+          {/* Stat Cards Row (4 equal columns grid across full width) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Stat 1: Total Banks */}
+            <StatCard
+              label="Total Banks"
+              count={summary.totalBanks}
+              caption="All registered banks"
+              icon={Landmark}
+              iconBgColor="bg-blue-50"
+              iconColor="text-blue-600"
+              isActive={filters.status === 'ALL'}
+              onClick={() => setStatusFilter('ALL')}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+            {/* Stat 2: In Use */}
+            <StatCard
+              label="In Use"
+              count={summary.inUseCount}
+              percentage={summary.inUsePercentage}
+              caption="Active in operations"
+              icon={CheckCircle2}
+              iconBgColor="bg-emerald-50"
+              iconColor="text-emerald-600"
+              badgeBgColor="bg-emerald-100"
+              badgeTextColor="text-emerald-800"
+              isActive={filters.status === 'In Use'}
+              onClick={() => setStatusFilter('In Use')}
+            />
+
+            {/* Stat 3: Pending Assignment */}
+            <StatCard
+              label="Pending Assignment"
+              count={summary.pendingCount}
+              percentage={summary.pendingPercentage}
+              caption="Awaiting payer assignment"
+              icon={Clock}
+              iconBgColor="bg-amber-50"
+              iconColor="text-amber-600"
+              badgeBgColor="bg-amber-100"
+              badgeTextColor="text-amber-800"
+              isActive={filters.status === 'Pending'}
+              onClick={() => setStatusFilter('Pending')}
+            />
+
+            {/* Stat 4: Mismatches */}
+            <StatCard
+              label="Mismatches"
+              count={summary.mismatchCount}
+              percentage={summary.mismatchPercentage}
+              caption="Require attention"
+              icon={AlertTriangle}
+              iconBgColor="bg-red-50"
+              iconColor="text-red-600"
+              badgeBgColor="bg-red-100"
+              badgeTextColor="text-red-800"
+              isActive={filters.status === 'Mismatch'}
+              onClick={() => setStatusFilter('Mismatch')}
+            />
+          </div>
+
+          {/* Filter & Search Bar */}
+          <FilterBar />
+
+          {/* Main Data & Secondary Column Section */}
+          <div className="grid grid-cols-1 xl:grid-cols-4 gap-6 items-start">
+            {/* Main Table + Pagination (Spans 3 columns on desktop) */}
+            <div className="xl:col-span-3 space-y-4 min-w-0">
+              <BanksTable
+                banks={data?.banks || []}
+                isLoading={isLoading}
+                isError={isError}
+                onRetry={() => refetch()}
+              />
+
+              <Pagination
+                total={data?.total ?? 24}
+                page={data?.page ?? 1}
+                pageSize={data?.pageSize ?? 6}
+                totalPages={data?.totalPages ?? 4}
+              />
+            </div>
+
+            {/* Right Analytics Side Panel (Stacks below on md/sm, side column on xl) */}
+            <div className="xl:col-span-1 space-y-6">
+              <LiquidityOverviewCard summary={summary} />
+              <QuickActionsCard />
+            </div>
+          </div>
+        </main>
+      </div>
+
+      {/* Interactive Modals & Drawers */}
+      <AddBankModal />
+      <BankDetailModal />
+      <AdvancedFilterDrawer />
     </div>
   );
 }
