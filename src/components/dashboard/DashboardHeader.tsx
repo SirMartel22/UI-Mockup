@@ -52,13 +52,13 @@ export default function DashboardHeader({ onOpenMobileSidebar }: DashboardHeader
       <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
         {/* Left Title Area */}
         <div>
-          <span className="text-xs font-semibold tracking-widest text-gray-400 uppercase block mb-1">
+          <span className="text-xs font-bold tracking-widest text-gray-400 uppercase block mb-1">
             TEAM LEAD CONTROL CENTER
           </span>
-          <h1 className="text-2xl font-bold text-gray-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
             Dashboard
           </h1>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <p className="text-sm font-normal text-gray-500 mt-1">
             Real-time cockpit for queue movement, liquidity, team performance and financial control.
           </p>
         </div>

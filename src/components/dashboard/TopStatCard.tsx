@@ -36,53 +36,54 @@ export function TopStatCard({ item }: TopStatCardProps) {
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-4 flex flex-col justify-between h-[116px] relative overflow-hidden transition-all hover:border-gray-300">
-      {/* Top Header Row: Icon + Tiny Sparkline */}
-      <div className="flex items-start justify-between">
+      {/* Top Row: Icon circle */}
+      <div>
         <div
           className={`w-9 h-9 rounded-full ${config.bg} ${config.text} flex items-center justify-center shrink-0`}
         >
           <IconComponent className="w-4 h-4" />
         </div>
-
-        {/* Tiny Sparkline SVG */}
-        <div className="w-16 h-8 pt-1">
-          <svg
-            viewBox="0 0 70 30"
-            className="w-full h-full overflow-visible"
-            fill="none"
-            stroke={strokeColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path
-              d={
-                item.sparklineColor === 'green'
-                  ? 'M 5 20 Q 20 22 35 15 T 65 18'
-                  : item.sparklineColor === 'red'
-                  ? 'M 5 15 Q 20 25 35 12 T 65 22'
-                  : item.sparklineColor === 'blue'
-                  ? 'M 5 22 Q 20 12 35 20 T 65 10'
-                  : 'M 5 18 Q 20 10 35 22 T 65 16'
-              }
-            />
-          </svg>
-        </div>
       </div>
 
       {/* Main Stat Area */}
-      <div className="mt-1">
-        <span className="text-xs font-medium text-gray-500 block leading-tight">
+      <div>
+        <span className="text-xs font-semibold text-gray-600 block leading-tight">
           {item.label}
         </span>
-        <div className="flex items-baseline justify-between mt-0.5">
-          <span className="text-2xl font-bold text-gray-900 leading-none">
-            {item.value}
-          </span>
-        </div>
-        <span className="text-[11px] font-normal text-gray-400 block mt-1">
-          {item.caption}
+        <span className="text-2xl font-bold text-gray-900 block leading-tight mt-0.5">
+          {item.value}
         </span>
+        {/* Bottom Row: Caption + Sparkline */}
+        <div className="flex items-end justify-between mt-1">
+          <span className="text-[11px] font-medium text-gray-400 block pb-0.5">
+            {item.caption}
+          </span>
+
+          {/* Tiny Sparkline SVG at bottom-right */}
+          <div className="w-16 h-6 shrink-0">
+            <svg
+              viewBox="0 0 70 30"
+              className="w-full h-full overflow-visible"
+              fill="none"
+              stroke={strokeColor}
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path
+                d={
+                  item.sparklineColor === 'green'
+                    ? 'M 5 20 Q 20 22 35 15 T 65 18'
+                    : item.sparklineColor === 'red'
+                    ? 'M 5 15 Q 20 25 35 12 T 65 22'
+                    : item.sparklineColor === 'blue'
+                    ? 'M 5 22 Q 20 12 35 20 T 65 10'
+                    : 'M 5 18 Q 20 10 35 22 T 65 16'
+                }
+              />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -102,13 +103,13 @@ export function SystemStatusCard({ data }: SystemStatusCardProps) {
         </div>
 
         <div>
-          <span className="text-xs font-medium text-gray-500 block leading-tight">
+          <span className="text-xs font-semibold text-gray-600 block leading-tight">
             System Status
           </span>
           <span className="text-xl font-bold text-gray-900 block mt-0.5 leading-tight">
             {data.statusText}
           </span>
-          <span className="text-[11px] font-normal text-gray-400 block mt-0.5">
+          <span className="text-[11px] font-medium text-gray-400 block mt-0.5">
             {data.caption}
           </span>
         </div>
