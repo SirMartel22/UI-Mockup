@@ -47,73 +47,73 @@ export default function DashboardHeader({ onOpenMobileSidebar }: DashboardHeader
   }, [incrementSyncTimer]);
 
   return (
-    <div className="space-y-3 select-none">
+    <div className="space-y-2 select-none">
       {/* Top Header Row */}
-      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-3">
         {/* Left Title Area */}
         <div>
-          <span className="text-xs font-bold tracking-widest text-gray-400 uppercase block mb-1">
+          <span className="text-[10px] font-bold tracking-widest text-gray-400 uppercase block mb-0.5">
             TEAM LEAD CONTROL CENTER
           </span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
             Dashboard
           </h1>
-          <p className="text-sm font-normal text-gray-500 mt-1">
+          <p className="text-xs font-normal text-gray-500 mt-0.5">
             Real-time cockpit for queue movement, liquidity, team performance and financial control.
           </p>
         </div>
 
         {/* Top-Right Action Cluster */}
-        <div className="flex items-center flex-wrap gap-2.5 shrink-0 self-start lg:self-auto">
+        <div className="flex items-center flex-wrap gap-2 shrink-0 self-start lg:self-auto">
           {/* Pause Assignment Button */}
           <button
             onClick={togglePauseAssignment}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer border ${
+            className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
               isAssignmentPaused
                 ? 'bg-orange-100 text-orange-700 border-orange-400'
-                : 'bg-orange-50 text-orange-600 border-orange-500/30 hover:bg-orange-100'
+                : 'bg-[#FFF9F0] text-[#D97706] border-[#FDE68A] hover:bg-orange-100/70'
             }`}
           >
-            <Pause className="w-3.5 h-3.5 fill-current" />
+            <Pause className="w-3 h-3 fill-current" />
             <span>{isAssignmentPaused ? 'Resume Assignment' : 'Pause Assignment'}</span>
           </button>
 
           {/* Morning Shift Button */}
           <button
             onClick={toggleMorningShift}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer border ${
+            className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
               isMorningShift && !isClockedOut
-                ? 'bg-green-100 text-green-700 border-green-500/50'
-                : 'bg-green-50 text-green-600 border-green-500/30 hover:bg-green-100'
+                ? 'bg-green-100 text-green-700 border-green-400'
+                : 'bg-[#F0FDF4] text-[#16A34A] border-[#BBF7D0] hover:bg-green-100/70'
             }`}
           >
-            <Sun className="w-3.5 h-3.5" />
+            <Sun className="w-3 h-3" />
             <span>Morning Shift</span>
           </button>
 
           {/* Clock Out Button */}
           <button
             onClick={clockOut}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer border ${
+            className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
               isClockedOut
                 ? 'bg-gray-100 text-gray-700 border-gray-300'
-                : 'bg-green-50 text-green-600 border-green-600/30 hover:bg-green-100'
+                : 'bg-white text-[#16A34A] border-[#BBF7D0] hover:bg-green-50'
             }`}
           >
-            <LogOut className="w-3.5 h-3.5" />
+            <LogOut className="w-3 h-3" />
             <span>{isClockedOut ? 'Clock In' : 'Clock Out'}</span>
           </button>
 
           {/* Warning Icon Button */}
           <button
             aria-label="View system warnings"
-            className="w-9 h-9 border border-gray-200 rounded-lg flex items-center justify-center bg-white text-gray-600 hover:bg-gray-50 relative transition-colors cursor-pointer"
+            className="w-9 h-9 border border-gray-200 rounded-xl flex items-center justify-center bg-white text-gray-700 hover:bg-gray-50 relative transition-colors cursor-pointer"
           >
-            <AlertTriangle className="w-4 h-4 text-gray-700" />
+            <AlertTriangle className="w-4 h-4 text-gray-800" />
             {warningAlertCount > 0 && (
               <span
                 aria-live="polite"
-                className="absolute -top-1 -right-1 w-4 h-4 bg-orange-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-2xs"
+                className="absolute -top-1 -right-1 w-4 h-4 bg-[#F59E0B] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-2xs"
               >
                 {warningAlertCount}
               </span>
@@ -123,13 +123,13 @@ export default function DashboardHeader({ onOpenMobileSidebar }: DashboardHeader
           {/* Bell Icon Button */}
           <button
             aria-label="View notifications"
-            className="w-9 h-9 border border-gray-200 rounded-lg flex items-center justify-center bg-white text-gray-600 hover:bg-gray-50 relative transition-colors cursor-pointer"
+            className="w-9 h-9 border border-gray-200 rounded-xl flex items-center justify-center bg-white text-gray-700 hover:bg-gray-50 relative transition-colors cursor-pointer"
           >
-            <Bell className="w-4 h-4 text-gray-700" />
+            <Bell className="w-4 h-4 text-gray-800" />
             {bellNotificationCount > 0 && (
               <span
                 aria-live="polite"
-                className="absolute -top-1 -right-1 w-4 h-4 bg-navy-900 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-2xs"
+                className="absolute -top-1 -right-1 w-4 h-4 bg-[#0B153A] text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-2xs"
               >
                 {bellNotificationCount}
               </span>
@@ -144,14 +144,14 @@ export default function DashboardHeader({ onOpenMobileSidebar }: DashboardHeader
               aria-expanded={isAccountMenuOpen}
               className="flex items-center gap-2 pl-1 pr-2 py-1 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer"
             >
-              <div className="w-8 h-8 rounded-full bg-blue-600 text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-2xs">
+              <div className="w-8 h-8 rounded-full bg-[#0B153A] text-white text-xs font-bold flex items-center justify-center shrink-0 shadow-2xs">
                 TL
               </div>
               <div className="flex flex-col text-left">
-                <span className="text-xs font-bold text-gray-900 leading-tight">
+                <span className="text-xs font-bold text-[#0B153A] leading-tight">
                   Team Lead
                 </span>
-                <span className="text-[10px] font-medium text-gray-500 leading-tight">
+                <span className="text-[10px] font-medium text-gray-400 leading-tight">
                   Workspace
                 </span>
               </div>

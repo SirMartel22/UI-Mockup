@@ -61,7 +61,7 @@ export default function DashboardPage() {
       {/* Main Workspace Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Main Dashboard Content */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-[1600px] w-full mx-auto space-y-6">
+        <main className="flex-1 p-4 sm:p-5 lg:p-6 max-w-[1580px] w-full mx-auto space-y-4 sm:space-y-5">
           {/* Header Component */}
           <DashboardHeader
             onOpenMobileSidebar={() => setIsMobileSidebarOpen(true)}
@@ -72,7 +72,7 @@ export default function DashboardPage() {
           ) : (
             <>
               {/* Section 3: Top Stat Row — 5 Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-2.5">
                 {topStats?.map((item) => (
                   <TopStatCard key={item.id} item={item} />
                 ))}
@@ -83,21 +83,21 @@ export default function DashboardPage() {
               <QuickToolsBar />
 
               {/* Section 5: Three-Card Row #1 — Live Operations / Financial Overview / Team Performance */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {liveOps && <SectionCard data={liveOps} />}
                 {financial && <SectionCard data={financial} />}
                 {team && <SectionCard data={team} />}
               </div>
 
               {/* Section 6: Three-Card Row #2 — Bank Health / Coin Position / Risk & Discrepancy */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {bankHealth && <SectionCard data={bankHealth} />}
                 {coinPosition && <SectionCard data={coinPosition} />}
                 {riskSummary && <SectionCard data={riskSummary} />}
               </div>
 
               {/* Section 7: Bottom Row — Priority Alerts (~40%) + Live Activity Feed (~60%) */}
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch">
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-3 items-stretch">
                 <div className="lg:col-span-2">
                   <PriorityAlertsCard data={priorityAlerts} />
                 </div>

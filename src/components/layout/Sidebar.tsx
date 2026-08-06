@@ -43,18 +43,18 @@ export default function Sidebar({ isOpenMobile = false, onCloseMobile }: Sidebar
   ];
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-white border-r border-gray-200 w-[240px] shrink-0 select-none">
+    <div className="flex flex-col h-full bg-white border-r border-gray-200 w-[200px] shrink-0 select-none">
       {/* Brand Header */}
       <div className="p-4 flex items-center justify-between border-b border-gray-100">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-2xs shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-[#1B59F8] flex items-center justify-center text-white font-bold text-base shadow-2xs shrink-0">
             VA
           </div>
-          <div className="flex flex-col">
-            <span className="text-[11px] font-bold tracking-wider text-gray-900 uppercase leading-tight">
-              VENDOR AUTOMATION HUB
+          <div className="flex flex-col min-w-0">
+            <span className="text-[13px] font-bold text-[#0B153A] leading-tight truncate">
+              Vendor Automation Hub
             </span>
-            <span className="text-[11px] text-gray-500 font-medium">
+            <span className="text-[11px] text-gray-500 font-medium truncate">
               Team Lead Workspace
             </span>
           </div>
@@ -71,7 +71,7 @@ export default function Sidebar({ isOpenMobile = false, onCloseMobile }: Sidebar
       </div>
 
       {/* Nav List */}
-      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+      <nav className="flex-1 overflow-y-auto px-3 py-3.5 space-y-1.5">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive =
@@ -81,26 +81,26 @@ export default function Sidebar({ isOpenMobile = false, onCloseMobile }: Sidebar
             <Link
               key={item.label}
               href={item.href}
-              className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-semibold transition-all duration-150 ${
+              className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all duration-150 ${
                 isActive
-                  ? 'bg-navy-900 text-white font-semibold shadow-2xs'
-                  : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 font-medium'
+                  ? 'bg-[#0B153A] text-white shadow-xs'
+                  : 'text-[#0B153A] hover:bg-slate-100/80 hover:text-[#0B153A]'
               }`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 <Icon
-                  className={`w-4 h-4 ${
-                    isActive ? 'text-white' : 'text-gray-500'
+                  className={`w-4.5 h-4.5 stroke-[2.2] ${
+                    isActive ? 'text-white' : 'text-[#0B153A]'
                   }`}
                 />
-                <span className={isActive ? 'font-semibold' : 'font-medium'}>{item.label}</span>
+                <span className="font-bold tracking-tight">{item.label}</span>
               </div>
               {item.badge !== undefined && (
                 <span
                   className={`px-2 py-0.5 text-[11px] font-bold rounded-full ${
                     isActive
                       ? 'bg-white/20 text-white'
-                      : 'bg-blue-50 text-blue-600 font-bold border border-blue-100'
+                      : 'bg-[#E8EFFE] text-[#1B59F8]'
                   }`}
                 >
                   {item.badge}
